@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class GalleryItem extends Component {
   state = {
@@ -17,6 +18,27 @@ class GalleryItem extends Component {
     });
   }
 
+  clickLoveIt = () => {
+    console.log('LOVE IT');
+    alert('We are updating likes from ' + this.props.item.likes);
+    this.updateLike();
+  }
+
+  updateLike() {
+    axios({
+      method: 'PUT',
+      url: '/gallery/like/' + this.props.item.id,
+      // data:
+    })
+      .then((response) => {
+        this.props.getGallery();
+      })
+      .catch((err) => {
+        console.log(err);
+        alert('Oh darn');
+      });
+  }
+
   render() {
     let descOrImg = <p>{this.props.item.description}</p>;
 
@@ -26,11 +48,13 @@ class GalleryItem extends Component {
 
     return (
       <li>
-        <div onClick={this.handleToggleClick}>
+        <div className={this.props.className} onClick={this.handleToggleClick}>
           {descOrImg}
         </div>
-        <button>Love It!</button>
-        <p>0 people love this!</p>
+        <div>
+          <button onClick={this.clickLoveIt}>Love It!</button>
+          <p>{this.props.item.likes} people love this!</p>
+        </div>
       </li>
     );
   }

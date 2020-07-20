@@ -13,7 +13,7 @@ class App extends Component {
     this.getGallery();
   }
 
-  getGallery() {
+  getGallery = () => {
     axios({
       method: 'GET',
       url: '/gallery',
@@ -21,7 +21,7 @@ class App extends Component {
       .then((response) => {
         console.log(response.data);
         this.setState({
-          galleryList: response.data
+          galleryList: [...response.data]
         }, () => {
           console.log(this.state);
         });
@@ -44,7 +44,10 @@ class App extends Component {
         </header>
         <br/>
         <p>Gallery goes here</p>
-        <GalleryList galleryList={this.state.galleryList} />
+        <GalleryList
+          getGallery={this.getGallery}
+          galleryList={this.state.galleryList}
+        />
       </div>
     );
   }
