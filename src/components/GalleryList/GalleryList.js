@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import GalleryItem from '../GalleryItem/GalleryItem';
 
 class GalleryList extends Component {
   render() {
     const displayList = this.props.galleryList.map((item, index) => {
-      return <li key={item.id}>{item.description}</li>;
+      return <GalleryItem item={item} key={item.id} />;
     });
 
     return (
