@@ -1,7 +1,26 @@
 import React, { Component } from 'react';
 import './App.css';
+import axios from 'axios';
 
 class App extends Component {
+  componentDidMount() {
+    console.log(this);
+    this.getGallery();
+  }
+
+  getGallery() {
+    axios({
+      method: 'GET',
+      url: '/gallery',
+    })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert('There was and ERROR, run for the hills.');
+      });
+  }
   render() {
     return (
       <div className="App">
